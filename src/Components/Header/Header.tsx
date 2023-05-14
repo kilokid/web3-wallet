@@ -11,6 +11,8 @@ import {
 } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid'
 
+import { useConnect, useAccount, useDisconnect } from 'wagmi'
+
 const products = [
   { name: 'Analytics', description: 'Get a better understanding of your traffic', href: '#', icon: ChartPieIcon },
   { name: 'Engagement', description: 'Speak directly to your customers', href: '#', icon: CursorArrowRaysIcon },
@@ -29,6 +31,19 @@ const callsToAction = [
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const { isConnected } = useAccount()
+  const { connect, connectors, error, isLoading, pendingConnector } = useConnect()
+  const { disconnect } = useDisconnect()
+
+  const connector = connectors[0];
+
+  const onConnectWallet = () => {
+    connect({ connector })
+  }
+
+  const onDisconnectWallet = () => {
+    disconnect()
+  }
 
   return (
     <header className="bg-black">
@@ -112,7 +127,13 @@ const Header = () => {
           </a>
         </Popover.Group>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <button className="border-black-80 text-13 hover:bg-green-light dark:border-white-80 dark:bg-grayLight/80 dark:text-white-640 dark:active:text-white-640 h-[34px] rounded-xl border bg-white px-2 text-center font-semibold text-black transition-colors hover:text-white active:text-white dark:hover:bg-[#000] dark:hover:text-white dark:active:bg-[#132413] md:h-10 md:px-11 md:text-sm">Connect wallet</button>
+          <button className="border-black-80 text-13 hover:bg-green-light dark:border-white-80 dark:bg-grayLight/80 dark:text-white-640 dark:active:text-white-640 h-[34px] rounded-xl border bg-white px-2 text-center font-semibold text-black transition-colors hover:text-white active:text-white dark:hover:bg-[#000] dark:hover:text-white dark:active:bg-[#132413] md:h-10 md:px-11 md:text-sm"
+            disabled={!connector.ready}
+            key={connector.id}
+            onClick={isConnected ? onDisconnectWallet : onConnectWallet}
+          >
+            {isConnected ? 'disconnect' : 'Connect wallet'}
+          </button>
         </div>
       </nav>
       <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
@@ -144,10 +165,6 @@ const Header = () => {
                     <>
                       <Disclosure.Button className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 hover:bg-gray-50">
                         Product
-                        {/* <ChevronDownIcon
-                          className={classNames(open ? 'rotate-180' : '', 'h-5 w-5 flex-none')}
-                          aria-hidden="true"
-                        /> */}
                       </Disclosure.Button>
                       <Disclosure.Panel className="mt-2 space-y-2">
                         {[...products, ...callsToAction].map((item) => (
