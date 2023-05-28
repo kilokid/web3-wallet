@@ -14,7 +14,7 @@ import './App.scss';
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
   [mainnet],
-  [alchemyProvider({ apiKey: '****' }), publicProvider()],
+  [alchemyProvider({ apiKey: '***' }), publicProvider()],
 )
 
 const config = createConfig({
