@@ -13,7 +13,6 @@ export default function WalletInfo() {
             <div className="px-4 sm:px-0 mt-20">
               <h3 className="text-base font-semibold leading-7 text-white">Wallet Information</h3>
             </div>
-            {/* <img src={ensAvatar} alt="ENS Avatar" /> */}
             <div className="mt-6 border-t border-gray-100">
               <dl className="divide-y divide-gray-100">
                 <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
