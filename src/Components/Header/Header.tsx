@@ -128,7 +128,7 @@ const Header = () => {
         </Popover.Group>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <button className="border-black-80 text-13 hover:bg-green-light dark:border-white-80 dark:bg-grayLight/80 dark:text-white-640 dark:active:text-white-640 h-[34px] rounded-xl border bg-white px-2 text-center font-semibold text-black transition-colors hover:text-white active:text-white dark:hover:bg-[#000] dark:hover:text-white dark:active:bg-[#132413] md:h-10 md:px-11 md:text-sm"
-            disabled={!connector.ready}
+            disabled={connector.ready}
             key={connector.id}
             onClick={isConnected ? onDisconnectWallet : onConnectWallet}
           >
