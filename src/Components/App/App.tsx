@@ -9,6 +9,7 @@ import { MetaMaskConnector } from 'wagmi/connectors/metaMask'
 
 import Header from '../Header/Header';
 import WalletInfo from '../WalletInfo/WalletInfo';
+import CrossChainConnect from '../CrossChainConnect/CrossChainConnect';
 
 import './App.scss';
 
@@ -32,6 +33,7 @@ function App() {
       <div className="App">
         <Header />
         <WalletInfo />
+        <CrossChainConnect />
       </div>
     </WagmiConfig>
   );
